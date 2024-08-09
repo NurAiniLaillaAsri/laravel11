@@ -41,11 +41,7 @@ Route::get('/posts', function () {
 });
 
 Route::get('/posts/{slug}', function ($slug) {
-    $post = Arr::first(Post::all(), function($post) use($slug) {       // use($id) digunakan untuk memanggil id global agar bisa masuk
-        return $post['slug'] == $slug;                              // menggunakan == karena apapun yang ada di url adalah string
-    });
-
-    // dd($post);
+    $post = Post::find($slug);
 
     return view('post', ['title' => 'Single Post', 'post' => $post]);
 });
