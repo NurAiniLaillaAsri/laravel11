@@ -40,8 +40,7 @@ Route::get('/posts', function () {
     ]);
 });
 
-Route::get('/posts/{slug}', function ($slug) {
-    $post = Post::find($slug);
+Route::get('/posts/{post:slug}', function (Post $post) {        // Eloquent models, customizing the key
 
     return view('post', ['title' => 'Single Post', 'post' => $post]);
 });
