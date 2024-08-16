@@ -24,8 +24,8 @@ Route::get('/posts/{post:slug}', function (Post $post) {        // Eloquent mode
     return view('post', ['title' => 'Single Post', 'post' => $post]);
 });
 
-Route::get('/authors/{user}', function (User $user) {  
-    return view('posts', ['title' => 'Articles by ' . $user->name, 'posts' => $user->post]);
+Route::get('/authors/{user:username}', function (User $user) {  
+    return view('posts', ['title' => count($user->post) . ' Articles by ' . $user->name, 'posts' => $user->post]);
 });
 
 Route::get('/contact', function () {
