@@ -15,9 +15,10 @@ Route::get('/about', function () {
 });
 
 Route::get('/posts', function () {
+    $post = Post::with(['author', 'category'])->latest()->get();        // Eager loading, mengurangi penggunaan query
     return view('posts', [
         'title' => 'Blog',
-        'posts' => Post::all()
+        'posts' => $post
     ]);
 });
 
@@ -26,11 +27,15 @@ Route::get('/posts/{post:slug}', function (Post $post) {        // Eloquent mode
 });
 
 Route::get('/authors/{user:username}', function (User $user) {  
-    return view('posts', ['title' => count($user->posts) . ' Articles by ' . $user->name, 'posts' => $user->posts]);
+    $post = $user->posts->load('category', 'author');           // Lazy eager loading, Sometimes you may need to eager load a relationship after the parent model has already been retrieved.
+
+    return view('posts', ['title' => count($post) . ' Articles by ' . $user->name, 'posts' => $post]);
 });
 
 Route::get('/categories/{category:slug}', function (Category $category) {  
-    return view('posts', ['title' => 'Articles in ' . $category->name, 'posts' => $category->posts]);
+    $post = $category->posts->load('category', 'author');           // Lazy eager loading, Sometimes you may need to eager load a relationship after the parent model has already been retrieved.
+
+    return view('posts', ['title' => 'Articles in ' . $category->name, 'posts' => $post]);
 });
 
 Route::get('/contact', function () {
