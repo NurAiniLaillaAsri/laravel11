@@ -22,10 +22,17 @@ Route::get('/posts', function () {
     //     'posts' => $post
     // ]);
 
-    $post = Post::latest()->get();
+    // dump(request('search'));
+
+    // $post = Post::latest();
+
+    // if (request('search')) {
+    //     $post->where('title', 'like', '%' . request('search') . '%');
+    // }
+
     return view('posts', [
         'title' => 'Blog',
-        'posts' => $post,
+        'posts' => Post::filter(request(['search']))->latest()->get(),
     ]);
 });
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,5 +20,13 @@ class Post extends Model {          // otomatis terhubung dengan tabel posts
 
     public function category():BelongsTo {
         return $this->belongsTo(Category::class);
+    }
+
+    public function scopeFilter(Builder $query, array $filters):void {
+        $query->when(
+            $filters['search'] ?? false,
+            fn ($query, $search) => $query->where('title', 'like', '%' . $search . '%') 
+        );
+        
     }
 }
