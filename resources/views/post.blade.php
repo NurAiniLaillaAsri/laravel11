@@ -12,12 +12,11 @@
                             <img class="mr-4 w-16 h-16 rounded-full"
                                 src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="{{ $post->author->name }}">
                             <div>
-                                <a href="/categories/{{ $post->category->slug }}"><span class="bg-{{ $post->category->color }}-100 text-primary-800 text-xs font-medium inline-flex items-center px-1.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800 hover:underline">
+                                <a href="/posts?category={{ $post->category->slug }}"><span class="bg-{{ $post->category->color }}-100 text-primary-800 text-xs font-medium inline-flex items-center px-1.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800 hover:underline">
                                     {{ $post->category->name }}
                                 </span></a><br>
-                                <a href="/authors/{{ $post->author->username }}" rel="author"
-                                    class="text-xl font-bold text-gray-900 dark:text-white">{{ $post->author->name }}</a>
-                                
+                                <a href="/posts?author={{ $post->author->username }}" rel="author"
+                                    class="text-xl font-bold text-gray-900 dark:text-white hover:underline">{{ $post->author->name }}</a>
                                 <p class="text-base text-gray-500 dark:text-gray-400"><time pubdate datetime="2022-02-08" title="February 8th, 2022">{{ $post->created_at->diffForHumans() }}</time></p>
                             </div>
                         </div>
