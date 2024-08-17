@@ -32,7 +32,7 @@ Route::get('/posts', function () {
 
     return view('posts', [
         'title' => 'Blog',
-        'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->get(),
+        'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->paginate(15)->withQueryString(),
     ]);
 });
 
@@ -61,4 +61,8 @@ Route::get('/categories/{category:slug}', function (Category $category) {
 
 Route::get('/contact', function () {
     return view('contact', ['title' => 'Contact']);
+});
+
+Route::get('/login', function () {
+    return view('login', ['title' => 'Login']);
 });
