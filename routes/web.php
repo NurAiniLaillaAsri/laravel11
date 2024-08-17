@@ -30,7 +30,8 @@ Route::get('/posts', function () {
 });
 
 Route::get('/posts/{post:slug}', function (Post $post) {        // Eloquent models, customizing the key
-    return view('post', ['title' => 'Single Post', 'post' => $post]);
+    $posts = Post::inRandomOrder()->take(8)->get();
+    return view('post', ['title' => 'Single Post', 'post' => $post, 'posts' => $posts]);
 });
 
 Route::get('/authors/{user:username}', function (User $user) {  

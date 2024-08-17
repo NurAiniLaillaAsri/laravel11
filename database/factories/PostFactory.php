@@ -24,7 +24,7 @@ class PostFactory extends Factory
             'author_id' => User::factory(),         // App\Models\Post::factory(10)->recycle(User::factory(5)->create())->create()
             'category_id' => Category::factory(),
             'slug' => Str::slug(fake()->sentence()),
-            'body' => fake()->text(),
+            'body' => fake()->paragraphs(7, true)
         ];
     }
 }
