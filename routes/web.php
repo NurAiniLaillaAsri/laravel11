@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AddArticleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MyArticleController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\RegisterController;
 use App\Models\Category;
@@ -45,3 +47,9 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
+
+Route::get('/myarticle', [MyArticleController::class, 'index'])->name('myarticle');
+
+Route::get('/addArticle', [AddArticleController::class, 'index'])->name('addArticle');
+Route::post('/addArticle', [AddArticleController::class, 'store']);
+Route::get('/addArticle/checkSlug', [AddArticleController::class, 'checkSlug']);

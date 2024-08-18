@@ -6,10 +6,13 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Cviebrock\EloquentSluggable\Sluggable;
+
 
 class Post extends Model {          // otomatis terhubung dengan tabel posts
-    use HasFactory;
-    protected $fillable = ['title', 'author', 'slug', 'body'];
+    use HasFactory, Sluggable;
+    protected $fillable = ['title', 'author_id', 'category_id', 'slug', 'body'];
+    // protected $guarded = ['id'];
 
     // Eager Loading by Default
     protected $with = ['author', 'category'];
@@ -38,5 +41,14 @@ class Post extends Model {          // otomatis terhubung dengan tabel posts
             fn ($query, $author) => $query->whereHas('author', fn($query) => $query->where('username', $author))
         );
         
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 }
