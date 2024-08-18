@@ -49,7 +49,9 @@ Route::get('/register', [RegisterController::class, 'index'])->middleware('guest
 Route::post('/register', [RegisterController::class, 'store']);
 
 Route::get('/myarticle', [MyArticleController::class, 'index'])->name('myarticle');
+// Route::post('/myarticle/{{slug}}', [MyArticleController::class, 'destroy']);
 
 Route::get('/addArticle', [AddArticleController::class, 'index'])->name('addArticle');
 Route::post('/addArticle', [AddArticleController::class, 'store']);
 Route::get('/addArticle/checkSlug', [AddArticleController::class, 'checkSlug']);
+Route::delete('/myarticle/{post:slug}', [AddArticleController::class, 'destroy']);

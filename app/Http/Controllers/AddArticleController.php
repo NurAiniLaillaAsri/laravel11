@@ -18,12 +18,6 @@ class AddArticleController extends Controller
     }
 
     public function store(Request $request) {
-        // $slug = str_replace(' ', '-', $request->title);
-
-        // dd($slug);
-        // dd($request->author_id);
-        // return $request;
-
         $validatedArticle = $request->validate([
             'author_id' => 'required',
             'title' => 'required|min:3|max:255',
@@ -44,5 +38,11 @@ class AddArticleController extends Controller
     public function checkSlug(Request $request) {
         $slug = SlugService::createSlug(Post::class, 'slug', $request->title);
         return response()->json(['slug' => $slug]);
+    }
+
+    public function destroy(Post $post) {
+        Post::destroy($post->id);
+        
+        return redirect('/myarticle')->with('success', 'The Article has been deleted');
     }
 }
