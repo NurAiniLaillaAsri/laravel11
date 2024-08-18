@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RegisterController;
 use App\Models\Category;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
@@ -66,3 +67,9 @@ Route::get('/contact', function () {
 Route::get('/login', function () {
     return view('login', ['title' => 'Login']);
 });
+
+Route::get('/register', function () {
+    return view('register', ['title' => 'Register']);
+});
+
+Route::post('/register', [RegisterController::class, 'store']);
