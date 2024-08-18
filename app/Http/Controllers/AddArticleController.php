@@ -30,7 +30,7 @@ class AddArticleController extends Controller
 
         Post::create($validatedArticle);
 
-        $request->session()->flash('success', 'Registration was successful!');
+        $request->session()->flash('success', 'Publish article was successful!');
         
         return redirect('/myarticle');
     }
@@ -45,4 +45,35 @@ class AddArticleController extends Controller
         
         return redirect('/myarticle')->with('success', 'The Article has been deleted');
     }
+
+    public function edit(Post $post) {
+        // dd($post->id);
+        return view('editArticle', [
+            'title' => 'Edit Article', 
+            'post' => $post,
+            'categories' => Category::all()
+        ]);
+    }
+
+    public function update(Request $request, Post $post) {
+        $rules = [
+            'author_id' => 'required',
+            'title' => 'required|min:3|max:255',
+            'category_id' => 'required',
+            'body' => 'required|min:10',
+        ];
+
+        if($request->slug != $post->slug) {
+            $rules['slug'] = 'required|unique:posts';
+        };
+
+        $validatedArticle = $request->validate($rules);
+
+        $validatedArticle['body'] = Str::limit(strip_tags($request->body));
+
+        Post::where('id', $post->id)->update($validatedArticle);
+        
+        return redirect('/myarticle')->with('success', 'Update was successful!');
+    }
 }
+

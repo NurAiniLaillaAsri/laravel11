@@ -55,3 +55,5 @@ Route::get('/addArticle', [AddArticleController::class, 'index'])->name('addArti
 Route::post('/addArticle', [AddArticleController::class, 'store']);
 Route::get('/addArticle/checkSlug', [AddArticleController::class, 'checkSlug']);
 Route::delete('/myarticle/{post:slug}', [AddArticleController::class, 'destroy']);
+Route::get('/myarticle/{post:slug}/edit', [AddArticleController::class, 'edit']);
+Route::put('/myarticle/{post:id}', [AddArticleController::class, 'update']);

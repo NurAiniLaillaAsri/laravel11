@@ -41,14 +41,14 @@
                             </svg>
                         </a>
                     </div>
+                    <a href="/myarticle/{{ $post['slug'] }}/edit">
                     <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-yellow-400 rounded-lg focus:ring-4 focus:ring-yellow-200 dark:focus:ring-yellow-600 hover:bg-yellow-500">
                         Edit Article
-                    </button>
+                    </button></a>
 
                     <form action="/myarticle/{{ $post['slug'] }}" method="POST" class="d-inline object-right">
                         @csrf
                         @method('delete')
-                        
                         <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-red-200 dark:focus:ring-red-900 hover:bg-red-800" onclick="return confirm('Are you sure to delete this article?')">
                         Delete Article
                     </button>
