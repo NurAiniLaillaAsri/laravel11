@@ -66,8 +66,16 @@
                                 tabindex="-1" id="user-menu-item-0">Your Profile</a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
                                 tabindex="-1" id="user-menu-item-1">Settings</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                                tabindex="-1" id="user-menu-item-2">Sign out</a>
+                            @guest
+                                <!-- Tampilkan tombol login jika pengguna belum login -->
+                                <a href="{{ route('login') }}" class="block px-4 py-2 text-sm text-gray-700">Login</a>
+                            @else
+                                <!-- Tampilkan tombol logout jika pengguna sudah login -->
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="block px-4 py-2 text-sm text-gray-700">Sign out</button>
+                                </form>
+                            @endguest
                         </div>
                     </div>
                 </div>
@@ -142,9 +150,16 @@
                     Profile</a>
                 <a href="#"
                     class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
-                <a href="#"
-                    class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign
-                    out</a>
+                @guest
+                    <!-- Tampilkan tombol login jika pengguna belum login -->
+                    <a href="{{ route('login') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Login</a>
+                @else
+                    <!-- Tampilkan tombol logout jika pengguna sudah login -->
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign out</button>
+                    </form>
+                @endguest
             </div>
         </div>
     </div>
